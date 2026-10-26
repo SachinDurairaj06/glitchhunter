@@ -1,0 +1,46 @@
+{
+  "opencv": {
+    "version": "5.0.0",
+    "major": 5,
+    "machine": "AMD64",
+    "python": "3.12.10",
+    "modules": "calib core dnn features flann geometry highgui imgcodecs imgproc objdetect photo ptcloud python3 stereo stitching video videoio",
+    "cpu_baseline": "SSE SSE2 SSE3",
+    "cpu_dispatch": "SSE4_1 SSE4_2 AVX FP16 AVX2 AVX512_SKX",
+    "parallel": "Concurrency",
+    "hal": "YES (ipp (ver 0.0.1))",
+    "kleidicv": false,
+    "dnn_engines": [
+      "ENGINE_AUTO",
+      "ENGINE_NEW",
+      "ENGINE_CLASSIC",
+      "ENGINE_ORT"
+    ],
+    "threads": 12,
+    "optimized": true,
+    "distribution": "pip"
+  },
+  "platform": "Windows-11-10.0.26200-SP0",
+  "time": "2026-10-23 03:16",
+  "ops_ms": {
+    "cvtColor BGR2GRAY": 0.0398,
+    "cvtColor BGR2HSV": 0.17,
+    "cvtColor BGR2Lab": 0.3248,
+    "inRange (magenta)": 0.2678,
+    "morphologyEx open 5x5": 0.092,
+    "connectedComponentsWithStats": 0.4838,
+    "absdiff": 0.0284,
+    "norm INF": 0.0198,
+    "GaussianBlur 11x11": 0.1141,
+    "Canny": 0.2997,
+    "findContours": 0.8119,
+    "accumulate + accumulateSquare": 0.041,
+    "resize INTER_AREA 0.5x": 0.0692,
+    "imencode PNG": 7.0258,
+    "SSIM map": 7.1668,
+    "DNN text detect+recognize (auto)": 171.812,
+    "DNN text detect+recognize (classic)": 267.775
+  },
+  "detector_suite_ms_per_run": 345.19,
+  "frames_per_run": 24
+}

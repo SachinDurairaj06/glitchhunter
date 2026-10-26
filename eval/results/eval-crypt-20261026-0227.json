@@ -1,0 +1,273 @@
+{
+  "game": "crypt",
+  "started": "2026-10-26 02:01",
+  "repeats": 2,
+  "opencv": "5.0.0",
+  "machine": "AMD64",
+  "modes": {
+    "full": {
+      "runs": 2,
+      "recall": 1.0,
+      "precision": 1.0,
+      "culprit_accuracy": 1.0,
+      "fix_verified": 1.0,
+      "false_alarms": 0,
+      "false_alarm_ids": [
+        [],
+        []
+      ],
+      "seconds": 350.45,
+      "captures": 130,
+      "steps": 50,
+      "per_bug": {
+        "missing_texture": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "z_fight": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "flaky_flash": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "explosion": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "frozen": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "hud_overflow": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "black_map": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        }
+      },
+      "hunts": [
+        "h1026-020140-8e03",
+        "h1026-020742-d6fa"
+      ]
+    },
+    "no_zoom": {
+      "runs": 2,
+      "recall": 0.857,
+      "precision": 1.0,
+      "culprit_accuracy": 0.857,
+      "fix_verified": 0.643,
+      "false_alarms": 0,
+      "false_alarm_ids": [
+        [],
+        []
+      ],
+      "seconds": 386.75,
+      "captures": 133,
+      "steps": 45,
+      "per_bug": {
+        "missing_texture": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "z_fight": {
+          "detected": 0.0,
+          "culprit_correct": 0.0,
+          "fix_verified": 0.0,
+          "reported": 0.0
+        },
+        "flaky_flash": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "explosion": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "frozen": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 0.5,
+          "reported": 1.0
+        },
+        "hud_overflow": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 0.5,
+          "reported": 1.0
+        },
+        "black_map": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 0.5,
+          "reported": 1.0
+        }
+      },
+      "hunts": [
+        "h1026-021321-c1ef",
+        "h1026-022016-1130"
+      ]
+    },
+    "fixed_pipeline": {
+      "runs": 2,
+      "recall": 0.786,
+      "precision": 0.845,
+      "culprit_accuracy": 0.0,
+      "fix_verified": 0.0,
+      "false_alarms": 1,
+      "false_alarm_ids": [
+        [
+          "P5:object_missing"
+        ],
+        [
+          "P6:object_missing"
+        ]
+      ],
+      "seconds": 8.35,
+      "captures": 3,
+      "steps": 1,
+      "per_bug": {
+        "missing_texture": {
+          "detected": 1.0,
+          "culprit_correct": 0.0,
+          "fix_verified": 0.0,
+          "reported": 1.0
+        },
+        "z_fight": {
+          "detected": 0.0,
+          "culprit_correct": 0.0,
+          "fix_verified": 0.0,
+          "reported": 0.0
+        },
+        "flaky_flash": {
+          "detected": 0.5,
+          "culprit_correct": 0.0,
+          "fix_verified": 0.0,
+          "reported": 0.5
+        },
+        "explosion": {
+          "detected": 1.0,
+          "culprit_correct": 0.0,
+          "fix_verified": 0.0,
+          "reported": 1.0
+        },
+        "frozen": {
+          "detected": 1.0,
+          "culprit_correct": 0.0,
+          "fix_verified": 0.0,
+          "reported": 1.0
+        },
+        "hud_overflow": {
+          "detected": 1.0,
+          "culprit_correct": 0.0,
+          "fix_verified": 0.0,
+          "reported": 1.0
+        },
+        "black_map": {
+          "detected": 1.0,
+          "culprit_correct": 0.0,
+          "fix_verified": 0.0,
+          "reported": 1.0
+        }
+      },
+      "hunts": [
+        null,
+        null
+      ]
+    }
+  },
+  "false_positive_check": {
+    "runs": 12,
+    "runs_with_false_alarm": 0,
+    "false_alarm_rate": 0.0,
+    "commits": [
+      "04febd6e13",
+      "46bab01cf4"
+    ],
+    "rows": [
+      {
+        "commit": "04febd6e13",
+        "scenario": "overview",
+        "detections": []
+      },
+      {
+        "commit": "04febd6e13",
+        "scenario": "walk_to_gem",
+        "detections": []
+      },
+      {
+        "commit": "04febd6e13",
+        "scenario": "map_view",
+        "detections": []
+      },
+      {
+        "commit": "04febd6e13",
+        "scenario": "overview",
+        "detections": []
+      },
+      {
+        "commit": "04febd6e13",
+        "scenario": "walk_to_gem",
+        "detections": []
+      },
+      {
+        "commit": "04febd6e13",
+        "scenario": "map_view",
+        "detections": []
+      },
+      {
+        "commit": "46bab01cf4",
+        "scenario": "overview",
+        "detections": []
+      },
+      {
+        "commit": "46bab01cf4",
+        "scenario": "walk_to_gem",
+        "detections": []
+      },
+      {
+        "commit": "46bab01cf4",
+        "scenario": "map_view",
+        "detections": []
+      },
+      {
+        "commit": "46bab01cf4",
+        "scenario": "overview",
+        "detections": []
+      },
+      {
+        "commit": "46bab01cf4",
+        "scenario": "walk_to_gem",
+        "detections": []
+      },
+      {
+        "commit": "46bab01cf4",
+        "scenario": "map_view",
+        "detections": []
+      }
+    ]
+  }
+}

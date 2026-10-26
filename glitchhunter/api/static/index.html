@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GlitchHunter</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="11" fill="none" stroke="currentColor" stroke-width="2.4"/>
+        <circle cx="16" cy="16" r="3.2" fill="currentColor"/>
+        <path d="M16 1v7M16 24v7M1 16h7M24 16h7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <h1>GlitchHunter</h1>
+        <p class="sub">Agentic visual QA for games: OpenCV 5 sees, the agent decides, a human approves</p>
+      </div>
+    </div>
+    <div class="game-pick">
+      <label for="game">Game</label>
+      <select id="game"></select>
+      <span id="engine" class="engine"></span>
+    </div>
+    <nav class="play" id="play" aria-label="Play the game"></nav>
+  </header>
+  <div class="chips" id="chips"></div>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-tab="hunt" class="active">Live hunt</button>
+    <button role="tab" data-tab="score">Scoreboard</button>
+    <button role="tab" data-tab="detectors">Detectors</button>
+    <button role="tab" data-tab="history">History</button>
+  </nav>
+
+  <main>
+    <section id="tab-hunt" class="tab active">
+      <div class="controls panel">
+        <label>Planner
+          <select id="planner">
+            <option value="rule">rule (deterministic)</option>
+            <option value="bedrock">Claude on Amazon Bedrock</option>
+          </select>
+        </label>
+        <button id="start" class="primary">Start hunt</button>
+        <button id="stop" class="ghost" disabled>Stop</button>
+        <div id="status" class="status">No hunt selected.</div>
+      </div>
+
+      <ol id="pipeline" class="pipeline" aria-label="Agent pipeline"></ol>
+      <div id="kpis" class="kpis"></div>
+
+      <section class="panel approvals" id="approvals-panel" hidden>
+        <div class="panel-head"><h2>Needs your decision</h2><span class="muted">nothing is filed without you</span></div>
+        <div id="approvals"></div>
+      </section>
+
+      <div class="layout">
+        <section class="panel">
+          <div class="panel-head"><h2>Agent decisions</h2><span class="muted">what OpenCV measured, and what the agent did next</span></div>
+          <ol id="timeline" class="timeline" aria-live="polite"></ol>
+        </section>
+        <section class="panel">
+          <div class="panel-head"><h2>Findings</h2><span id="findings-count" class="muted"></span></div>
+          <div id="findings" class="findings"><p class="muted">Findings appear here as the agent works.</p></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="tab-score" class="tab">
+      <p class="lead">Every planted bug, every run: did the agent find it, bisect it to the right commit, and verify a fix?
+        Ablations remove one capability at a time. Written by <code>python -m glitchhunter eval</code>.</p>
+      <div id="scoreboard" class="score-grid"></div>
+    </section>
+
+    <section id="tab-detectors" class="tab">
+      <p class="lead">The OpenCV 5 detectors the agent perceives with. Each one returns a score, a confidence, a region
+        and evidence images; the agent picks its next action from them.</p>
+      <div id="detectors" class="families"></div>
+    </section>
+
+    <section id="tab-history" class="tab">
+      <div class="panel">
+        <table class="history">
+          <thead><tr><th>Hunt</th><th>Game</th><th>Reported</th><th>Steps</th><th>Time</th><th>Ended</th></tr></thead>
+          <tbody id="hunts"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="viewer"><img id="viewer-img" alt=""><form method="dialog"><button class="ghost">Close</button></form></dialog>
+  <dialog id="diff-viewer"><h3 id="diff-title"></h3><pre id="diff-body"></pre><form method="dialog"><button class="ghost">Close</button></form></dialog>
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+# Demo video script (under 5 minutes)
+
+Record the dashboard at 1280x800 with a live hunt running (`python -m glitchhunter serve --game hangar`,
+web approvals), plus a terminal for the Godot window and `bridge-check`. Keep each beat short; the
+trace on screen does most of the talking.
+
+| Time | On screen | Say |
+|---|---|---|
+| 0:00-0:20 | Title card, then your face/team | "We're <team>. Game studios spend a lot on QA, and indie teams have almost none. GlitchHunter is an agent that finds visual bugs in a game build by looking at it, works out which commit caused each one, and proposes a verified fix. A human approves before anything is filed. And it works with any engine." |
+| 0:20-0:45 | `docs/ARCHITECTURE.md` diagrams | "OpenCV 5 is the perception layer: 19 detectors, from optical flow to the new DNN engine reading UI text. The agent runs on an AWS Graviton instance, plans with Claude on Amazon Bedrock, stores evidence in S3 and logs metrics to CloudWatch. The same OpenCV tools are exposed over MCP for developer agents." |
+| 0:45-1:15 | Start a hunt on Hangar 9; the Godot window flickers through scenarios; survey thumbnails | "This is a Godot 4 game, driven natively over a small bridge. The agent plays five scenarios of the latest build and finds a desaturated grade, NaN blocks from a shader, a robot sliding in a T-pose, a pallet that fell through the landing pad, a wall whose normal map is upside down, and a generator that lost its shadow." |
+| 1:15-1:45 | Finding cards: `shading_inverted` and `shadow_missing` evidence | "Those two are lighting bugs, the kind Unity and Unreal teams file every week: a DirectX-convention normal map, and a prop that stopped casting shadows. OpenCV sees them by comparing with the approved build: the relief detail anti-correlates, or an area that was in shadow is lit with the same texture." |
+| 1:45-2:20 | Timeline: replay -> bisect, "found inside merge", "skipped 1 broken build" | "Before bisecting, it replays: identical frames every time, so one capture per commit. The bisect skips a commit that doesn't even build, and when the culprit is behind a merge, it searches inside the merged branch: the robot broke when its rig was renamed on a feature branch." |
+| 2:20-2:50 | Crypt Runner: `zoom_in` on the z-fighting decal, confidence 0.10 -> 0.99 | "Small evidence makes it move closer. In this web game a 121-pixel flicker starts at confidence 0.1; the agent ray-casts into the scene and moves the camera in until it is sure: z-fighting. A random flash seen once in four replays gets 8 captures per commit." |
+| 2:50-3:20 | `verify_fix` before/after, then **Needs your decision** | "It reverts the culprit on a branch, captures the fix build and surveys every scenario and screen size again. Nothing is filed until I approve. I'll approve this one, and reject the next, which deletes its branch." |
+| 3:20-3:50 | Terminal: `init --engine unity`, then `bridge-check` on the Godot game | "Bringing your own engine takes three commands: init writes the test plan and copies the bridge, bridge-check grades it, especially determinism, and hunt runs the agent. No integration at all? Point it at a playtest recording." |
+| 3:50-4:30 | `eval/RESULTS.md` | "Across three games and 28 planted bugs: <read recall / culprit / fix-verified per game>. Without zoom it misses the z-fight; without the screen-size sweep it misses the cut-off HUD; a fixed pipeline finds bugs but no causes or fixes. Clean builds: <false-alarm number>." |
+| 4:30-5:00 | CloudFormation outputs / `aws-doctor` | "It deploys with one CloudFormation stack on Graviton. Limits: the games and bugs are ours, and Unity hasn't been run end to end yet. Thanks!" |

@@ -1,0 +1,12 @@
+.git
+.work
+.venv
+**/__pycache__
+.pytest_cache
+models/*.onnx
+models/*.part
+eval/results
+bench/results
+docs
+bridges/unity/check/bin
+bridges/unity/check/obj

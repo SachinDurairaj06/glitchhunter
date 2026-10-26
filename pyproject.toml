@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "glitchhunter"
+version = "0.1.0"
+description = "Agentic visual QA for games: OpenCV 5 perception, visual git bisect, verified fixes, human approval."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "opencv-python-headless==5.0.0.93",
+  "numpy==2.5.4",
+  "playwright==1.64.1",
+  "fastapi==0.161.0",
+  "uvicorn==0.54.0",
+  "mcp==2.3.0",
+  "anthropic[bedrock]==2.1.0",
+  "boto3==1.43.118",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.1.1", "httpx==0.28.1"]
+
+[project.scripts]
+glitchhunter = "glitchhunter.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["glitchhunter*"]
+
+[tool.setuptools.package-data]
+glitchhunter = ["api/static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: drives a real headless browser (about a minute)"]

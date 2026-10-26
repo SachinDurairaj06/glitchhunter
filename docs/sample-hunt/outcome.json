@@ -1,0 +1,367 @@
+{
+  "hunt": "h1023-030846-08f5",
+  "planner": "rule",
+  "ended": "planner finished: reported ['F1', 'F2', 'F3', 'F4', 'F5', 'F6']; waiting for a human on []",
+  "steps": 46,
+  "seconds": 298.2,
+  "captures": 140,
+  "findings": [
+    {
+      "id": "F6",
+      "detector": "frozen_frame",
+      "severity": "critical",
+      "status": "reported",
+      "scenario": "walk_to_gem",
+      "object": null,
+      "score": 1.0,
+      "confidence": 0.95,
+      "region": null,
+      "area_px": 0,
+      "camera": "default",
+      "zooms": 0,
+      "note": "picture stops changing at frame 31 (t=1.03s) and stays frozen for 29 frames until the end",
+      "also_seen_in": [],
+      "reproduction": {
+        "runs": 3,
+        "hits": 3,
+        "rate": 1.0,
+        "deterministic": true,
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "bisect": {
+        "culprit": "ae5601f66e",
+        "culprit_subject": "use per-gem reward values on pickup",
+        "repeats": 1,
+        "tested": 5
+      },
+      "fix": {
+        "branch": "glitchhunter/h1023-030846-08f5-f6-frozen_frame",
+        "sha": "f2a94168ea",
+        "strategy": "revert"
+      },
+      "verification": {
+        "passed": true,
+        "reason": "glitch gone and no new glitches; it unmasks already-known glitches ['flash', 'zfight_flicker']"
+      },
+      "approval": {
+        "choice": "approve",
+        "by": "web",
+        "note": "Confirmed in the dashboard test: freeze happens right at the gem pickup."
+      }
+    },
+    {
+      "id": "F7",
+      "detector": "black_frame",
+      "severity": "critical",
+      "status": "rejected",
+      "scenario": "map_view",
+      "object": null,
+      "score": 0.95,
+      "confidence": 0.95,
+      "region": null,
+      "area_px": 0,
+      "camera": "default",
+      "zooms": 0,
+      "note": "10/10 frames are >85% black; only the UI (if anything) is still drawn",
+      "also_seen_in": [],
+      "reproduction": {
+        "runs": 3,
+        "hits": 3,
+        "rate": 1.0,
+        "deterministic": true,
+        "scores": [
+          0.95,
+          0.95,
+          0.95
+        ]
+      },
+      "bisect": {
+        "culprit": "b6d6bd6739",
+        "culprit_subject": "extend map view draw distance",
+        "repeats": 1,
+        "tested": 6
+      },
+      "fix": {
+        "branch": "glitchhunter/h1023-030846-08f5-f7-black_frame",
+        "sha": "8483cccb46",
+        "strategy": "revert"
+      },
+      "verification": {
+        "passed": true,
+        "reason": "glitch gone and no new glitches; it unmasks already-known glitches ['geometry_explosion', 'missing_texture']"
+      },
+      "approval": {
+        "choice": "reject",
+        "by": "web",
+        "note": "Dashboard test: rejecting to check that the fix branch is cleaned up."
+      }
+    },
+    {
+      "id": "F4",
+      "detector": "geometry_explosion",
+      "severity": "major",
+      "status": "reported",
+      "scenario": "overview",
+      "object": "rock",
+      "score": 1.0,
+      "confidence": 0.773,
+      "region": [
+        90,
+        180,
+        101,
+        118
+      ],
+      "area_px": 11918,
+      "camera": "default",
+      "zooms": 0,
+      "note": "3691 px spiky region (solidity 0.48) differs from the golden frame",
+      "also_seen_in": [
+        "walk_to_gem"
+      ],
+      "reproduction": {
+        "runs": 3,
+        "hits": 3,
+        "rate": 1.0,
+        "deterministic": false,
+        "scores": [
+          0.944,
+          1.0,
+          1.0
+        ]
+      },
+      "bisect": {
+        "culprit": "1f366b94a3",
+        "culprit_subject": "tune rock noise amplitude",
+        "repeats": 2,
+        "tested": 5
+      },
+      "fix": {
+        "branch": "glitchhunter/h1023-030846-08f5-f4-geometry_explosion",
+        "sha": "6a76aa5b5e",
+        "strategy": "revert"
+      },
+      "verification": {
+        "passed": true,
+        "reason": "glitch gone and no new glitches; it unmasks already-known glitches ['flash']"
+      },
+      "approval": {
+        "choice": "approve",
+        "by": "web",
+        "note": "approved by test script"
+      }
+    },
+    {
+      "id": "F1",
+      "detector": "missing_texture",
+      "severity": "major",
+      "status": "reported",
+      "scenario": "walk_to_gem",
+      "object": "crate",
+      "score": 0.977,
+      "confidence": 0.986,
+      "region": [
+        232,
+        141,
+        38,
+        44
+      ],
+      "area_px": 1672,
+      "camera": "default",
+      "zooms": 0,
+      "note": "668 px of magenta/black checker (engine missing-texture placeholder)",
+      "also_seen_in": [
+        "overview"
+      ],
+      "reproduction": {
+        "runs": 3,
+        "hits": 3,
+        "rate": 1.0,
+        "deterministic": true,
+        "scores": [
+          0.977,
+          0.977,
+          0.996
+        ]
+      },
+      "bisect": {
+        "culprit": "c08ccda574",
+        "culprit_subject": "reorganize texture paths",
+        "repeats": 1,
+        "tested": 5
+      },
+      "fix": {
+        "branch": "glitchhunter/h1023-030846-08f5-f1-missing_texture",
+        "sha": "06d134a9de",
+        "strategy": "revert"
+      },
+      "verification": {
+        "passed": true,
+        "reason": "glitch gone and no new glitches"
+      },
+      "approval": {
+        "choice": "approve",
+        "by": "web",
+        "note": "approved by test script"
+      }
+    },
+    {
+      "id": "F3",
+      "detector": "flash",
+      "severity": "major",
+      "status": "reported",
+      "scenario": "overview",
+      "object": null,
+      "score": 0.705,
+      "confidence": 0.9,
+      "region": null,
+      "area_px": 0,
+      "camera": "default",
+      "zooms": 0,
+      "note": "1 full-screen flash(es), brightness +42 over the median (photosensitivity risk)",
+      "also_seen_in": [],
+      "reproduction": {
+        "runs": 4,
+        "hits": 1,
+        "rate": 0.25,
+        "deterministic": false,
+        "scores": [
+          0.0,
+          0.0,
+          0.0,
+          0.704
+        ]
+      },
+      "bisect": {
+        "culprit": "c64d8467d7",
+        "culprit_subject": "add ambient lightning flashes",
+        "repeats": 8,
+        "tested": 5
+      },
+      "fix": {
+        "branch": "glitchhunter/h1023-030846-08f5-f3-flash",
+        "sha": "5f6470b079",
+        "strategy": "revert"
+      },
+      "verification": {
+        "passed": true,
+        "reason": "glitch gone and no new glitches"
+      },
+      "approval": {
+        "choice": "approve",
+        "by": "web",
+        "note": "approved by test script"
+      }
+    },
+    {
+      "id": "F5",
+      "detector": "hud_text_overflow",
+      "severity": "minor",
+      "status": "reported",
+      "scenario": "overview",
+      "object": null,
+      "score": 1.0,
+      "confidence": 0.9,
+      "region": [
+        20,
+        20,
+        164,
+        56
+      ],
+      "area_px": 9184,
+      "camera": "default",
+      "zooms": 0,
+      "note": "UI text ['scoreltot'] extends 91px beyond its panel",
+      "also_seen_in": [
+        "walk_to_gem",
+        "map_view"
+      ],
+      "reproduction": {
+        "runs": 3,
+        "hits": 3,
+        "rate": 1.0,
+        "deterministic": true,
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "bisect": {
+        "culprit": "b1d02d0348",
+        "culprit_subject": "localize HUD labels",
+        "repeats": 1,
+        "tested": 5
+      },
+      "fix": {
+        "branch": "glitchhunter/h1023-030846-08f5-f5-hud_text_overflow",
+        "sha": "ef5718b92c",
+        "strategy": "revert"
+      },
+      "verification": {
+        "passed": true,
+        "reason": "glitch gone and no new glitches"
+      },
+      "approval": {
+        "choice": "approve",
+        "by": "web",
+        "note": "approved by test script"
+      }
+    },
+    {
+      "id": "F2",
+      "detector": "zfight_flicker",
+      "severity": "minor",
+      "status": "reported",
+      "scenario": "overview",
+      "object": "floor+rune_decal",
+      "score": 0.92,
+      "confidence": 0.991,
+      "region": [
+        188,
+        164,
+        45,
+        20
+      ],
+      "area_px": 900,
+      "camera": "zoomed",
+      "zooms": 2,
+      "note": "662 px region toggles 11x in 24 frames (z-fighting / flicker)",
+      "also_seen_in": [],
+      "reproduction": {
+        "runs": 3,
+        "hits": 3,
+        "rate": 1.0,
+        "deterministic": true,
+        "scores": [
+          0.972,
+          0.988,
+          0.972
+        ]
+      },
+      "bisect": {
+        "culprit": "ba98e5d336",
+        "culprit_subject": "snap rune decal flush to the floor",
+        "repeats": 1,
+        "tested": 5
+      },
+      "fix": {
+        "branch": "glitchhunter/h1023-030846-08f5-f2-zfight_flicker",
+        "sha": "ed2ed58c7f",
+        "strategy": "revert"
+      },
+      "verification": {
+        "passed": true,
+        "reason": "glitch gone and no new glitches"
+      },
+      "approval": {
+        "choice": "approve",
+        "by": "web",
+        "note": "approved by test script"
+      }
+    }
+  ]
+}

@@ -1,0 +1,351 @@
+{
+  "started": "2026-10-23 03:29",
+  "repeats": 5,
+  "opencv": "5.0.0",
+  "machine": "AMD64",
+  "modes": {
+    "full": {
+      "runs": 5,
+      "recall": 1.0,
+      "precision": 1.0,
+      "culprit_accuracy": 1.0,
+      "fix_verified": 0.971,
+      "false_alarms": 0,
+      "seconds": 211.6,
+      "captures": 122,
+      "steps": 46.2,
+      "per_bug": {
+        "missing_texture": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "z_fight": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "flaky_flash": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "explosion": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "frozen": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 0.8,
+          "reported": 1.0
+        },
+        "hud_overflow": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "black_map": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        }
+      },
+      "hunts": [
+        "h1023-032938-3742",
+        "h1023-033316-f470",
+        "h1023-033642-676d",
+        "h1023-033959-6d4d",
+        "h1023-034347-4061"
+      ]
+    },
+    "no_zoom": {
+      "runs": 5,
+      "recall": 0.857,
+      "precision": 1.0,
+      "culprit_accuracy": 0.829,
+      "fix_verified": 0.829,
+      "false_alarms": 0,
+      "seconds": 177.66,
+      "captures": 101,
+      "steps": 41,
+      "per_bug": {
+        "missing_texture": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "z_fight": {
+          "detected": 0.0,
+          "culprit_correct": 0.0,
+          "fix_verified": 0.0,
+          "reported": 0.0
+        },
+        "flaky_flash": {
+          "detected": 1.0,
+          "culprit_correct": 0.8,
+          "fix_verified": 0.8,
+          "reported": 1.0
+        },
+        "explosion": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "frozen": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "hud_overflow": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        },
+        "black_map": {
+          "detected": 1.0,
+          "culprit_correct": 1.0,
+          "fix_verified": 1.0,
+          "reported": 1.0
+        }
+      },
+      "hunts": [
+        "h1023-034717-0821",
+        "h1023-035049-84ec",
+        "h1023-035325-8208",
+        "h1023-035553-297f",
+        "h1023-035918-1476"
+      ]
+    },
+    "fixed_pipeline": {
+      "runs": 5,
+      "recall": 0.771,
+      "precision": 1.0,
+      "culprit_accuracy": 0.0,
+      "fix_verified": 0.0,
+      "false_alarms": 0,
+      "seconds": 4.34,
+      "captures": 3,
+      "steps": 1,
+      "per_bug": {
+        "missing_texture": {
+          "detected": 1.0,
+          "culprit_correct": 0.0,
+          "fix_verified": 0.0,
+          "reported": 1.0
+        },
+        "z_fight": {
+          "detected": 0.0,
+          "culprit_correct": 0.0,
+          "fix_verified": 0.0,
+          "reported": 0.0
+        },
+        "flaky_flash": {
+          "detected": 0.4,
+          "culprit_correct": 0.0,
+          "fix_verified": 0.0,
+          "reported": 0.4
+        },
+        "explosion": {
+          "detected": 1.0,
+          "culprit_correct": 0.0,
+          "fix_verified": 0.0,
+          "reported": 1.0
+        },
+        "frozen": {
+          "detected": 1.0,
+          "culprit_correct": 0.0,
+          "fix_verified": 0.0,
+          "reported": 1.0
+        },
+        "hud_overflow": {
+          "detected": 1.0,
+          "culprit_correct": 0.0,
+          "fix_verified": 0.0,
+          "reported": 1.0
+        },
+        "black_map": {
+          "detected": 1.0,
+          "culprit_correct": 0.0,
+          "fix_verified": 0.0,
+          "reported": 1.0
+        }
+      },
+      "hunts": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "false_positive_check": {
+    "runs": 30,
+    "runs_with_false_alarm": 0,
+    "false_alarm_rate": 0.0,
+    "rows": [
+      {
+        "commit": "ad32e651f1",
+        "scenario": "overview",
+        "detections": []
+      },
+      {
+        "commit": "ad32e651f1",
+        "scenario": "walk_to_gem",
+        "detections": []
+      },
+      {
+        "commit": "ad32e651f1",
+        "scenario": "map_view",
+        "detections": []
+      },
+      {
+        "commit": "ad32e651f1",
+        "scenario": "overview",
+        "detections": []
+      },
+      {
+        "commit": "ad32e651f1",
+        "scenario": "walk_to_gem",
+        "detections": []
+      },
+      {
+        "commit": "ad32e651f1",
+        "scenario": "map_view",
+        "detections": []
+      },
+      {
+        "commit": "ad32e651f1",
+        "scenario": "overview",
+        "detections": []
+      },
+      {
+        "commit": "ad32e651f1",
+        "scenario": "walk_to_gem",
+        "detections": []
+      },
+      {
+        "commit": "ad32e651f1",
+        "scenario": "map_view",
+        "detections": []
+      },
+      {
+        "commit": "ad32e651f1",
+        "scenario": "overview",
+        "detections": []
+      },
+      {
+        "commit": "ad32e651f1",
+        "scenario": "walk_to_gem",
+        "detections": []
+      },
+      {
+        "commit": "ad32e651f1",
+        "scenario": "map_view",
+        "detections": []
+      },
+      {
+        "commit": "ad32e651f1",
+        "scenario": "overview",
+        "detections": []
+      },
+      {
+        "commit": "ad32e651f1",
+        "scenario": "walk_to_gem",
+        "detections": []
+      },
+      {
+        "commit": "ad32e651f1",
+        "scenario": "map_view",
+        "detections": []
+      },
+      {
+        "commit": "cc5f7ba284",
+        "scenario": "overview",
+        "detections": []
+      },
+      {
+        "commit": "cc5f7ba284",
+        "scenario": "walk_to_gem",
+        "detections": []
+      },
+      {
+        "commit": "cc5f7ba284",
+        "scenario": "map_view",
+        "detections": []
+      },
+      {
+        "commit": "cc5f7ba284",
+        "scenario": "overview",
+        "detections": []
+      },
+      {
+        "commit": "cc5f7ba284",
+        "scenario": "walk_to_gem",
+        "detections": []
+      },
+      {
+        "commit": "cc5f7ba284",
+        "scenario": "map_view",
+        "detections": []
+      },
+      {
+        "commit": "cc5f7ba284",
+        "scenario": "overview",
+        "detections": []
+      },
+      {
+        "commit": "cc5f7ba284",
+        "scenario": "walk_to_gem",
+        "detections": []
+      },
+      {
+        "commit": "cc5f7ba284",
+        "scenario": "map_view",
+        "detections": []
+      },
+      {
+        "commit": "cc5f7ba284",
+        "scenario": "overview",
+        "detections": []
+      },
+      {
+        "commit": "cc5f7ba284",
+        "scenario": "walk_to_gem",
+        "detections": []
+      },
+      {
+        "commit": "cc5f7ba284",
+        "scenario": "map_view",
+        "detections": []
+      },
+      {
+        "commit": "cc5f7ba284",
+        "scenario": "overview",
+        "detections": []
+      },
+      {
+        "commit": "cc5f7ba284",
+        "scenario": "walk_to_gem",
+        "detections": []
+      },
+      {
+        "commit": "cc5f7ba284",
+        "scenario": "map_view",
+        "detections": []
+      }
+    ]
+  }
+}

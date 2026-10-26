@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.venv/
+.work/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+# OpenCV Zoo model weights are downloaded by `python -m glitchhunter fetch-models`
+models/*.onnx
+models/*.part
+eval/results/raw/
+# dotnet build output of the Unity bridge type check
+bridges/unity/check/bin/
+bridges/unity/check/obj/

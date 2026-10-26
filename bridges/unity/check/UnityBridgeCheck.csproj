@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Type-checks the Unity bridge without Unity: `dotnet build bridges/unity/check`.
+       C# 9 is what Unity 2021.3 LTS compiles with; the stubs carry Unity's signatures. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <DefineConstants>$(DefineConstants);UNITY_EDITOR</DefineConstants>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="UnityApiStubs.cs" />
+    <Compile Include="../GlitchHunterBridge.cs" />
+    <Compile Include="../Editor/GlitchHunterBuild.cs" />
+  </ItemGroup>
+</Project>

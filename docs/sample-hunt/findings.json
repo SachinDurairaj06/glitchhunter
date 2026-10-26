@@ -1,0 +1,1499 @@
+[
+  {
+    "id": "F6",
+    "detector": "frozen_frame",
+    "scenario": "walk_to_gem",
+    "commit": "c7a252ba8009d1bb6a39bf519eae13c574ed325a",
+    "region": null,
+    "camera": null,
+    "score": 1.0,
+    "confidence": 0.95,
+    "note": "picture stops changing at frame 31 (t=1.03s) and stays frozen for 29 frames until the end",
+    "run_id": "1023030856e14b",
+    "status": "reported",
+    "object": null,
+    "frames": [
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59
+    ],
+    "metrics": {
+      "frozen_from": 31,
+      "frozen_frames": 29,
+      "until_end": true,
+      "max_diff_before": 193.0
+    },
+    "evidence": {
+      "diff_plot": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023030856e14b\\ev\\survey-frozen_frame-1-diff_plot.png",
+      "before_after": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023030856e14b\\ev\\survey-frozen_frame-1-before_after.png",
+      "before_after_fix": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023030924bc0b\\F6-before-after.png"
+    },
+    "also_seen": [],
+    "zooms": 0,
+    "repro": {
+      "runs": 3,
+      "hits": 3,
+      "rate": 1.0,
+      "deterministic": true,
+      "scores": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "bisect": {
+      "good": "ad32e651f1",
+      "bad": "c7a252ba80",
+      "repeats": 1,
+      "culprit": "ae5601f66e",
+      "culprit_subject": "use per-gem reward values on pickup",
+      "steps": [
+        {
+          "commit": "ad32e651f1",
+          "bad": false,
+          "runs": 1,
+          "score": 0.0,
+          "subject": "add map view on the M key"
+        },
+        {
+          "commit": "c7a252ba80",
+          "bad": true,
+          "runs": 1,
+          "score": 1.0,
+          "subject": "add credits header"
+        },
+        {
+          "commit": "c64d8467d7",
+          "bad": false,
+          "runs": 1,
+          "score": 0.0,
+          "subject": "add ambient lightning flashes"
+        },
+        {
+          "commit": "ae5601f66e",
+          "bad": true,
+          "runs": 1,
+          "score": 1.0,
+          "subject": "use per-gem reward values on pickup"
+        },
+        {
+          "commit": "1f366b94a3",
+          "bad": false,
+          "runs": 1,
+          "score": 0.0,
+          "subject": "tune rock noise amplitude"
+        }
+      ],
+      "tested": 5,
+      "range": 9,
+      "captures": 5
+    },
+    "bisect_attempts": 1,
+    "culprit": {
+      "sha": "ae5601f66e79ff260e04c1403137049c771f0d9e",
+      "author": "Crypt Runner Dev",
+      "date": "Thu Oct 1 14:30:00 2026 +0000",
+      "subject": "use per-gem reward values on pickup",
+      "files": [
+        "game.js"
+      ],
+      "diff": "diff --git a/game.js b/game.js\nindex 2081c41..648d655 100644\n--- a/game.js\n+++ b/game.js\n@@ -1,3 +1,4 @@\n // Crypt Runner: a tiny three.js dungeon scene.\n+// Credits: textures are generated procedurally by the build script.\n import * as THREE from './vendor/three.module.js';"
+    },
+    "fix": {
+      "branch": "glitchhunter/h1023-030846-08f5-f6-frozen_frame",
+      "sha": "f2a94168ea2b88c9a24d2e20843fd6709aba13a2",
+      "strategy": "revert",
+      "diff": "Revert \"use per-gem reward values on pickup\"\n\ndiff --git a/game.js b/game.js\nindex 648d655..cf5ffd7 100644\n--- a/game.js\n+++ b/game.js\n@@ -212,5 +212,5 @@ function updatePlayer() {\n   if (gem.visible && player.position.distanceTo(gem.position) < 0.9) {\n     gem.visible = false;\n-    score += gem.userData.reward.points;\n+    score += 10;\n     hud.draw();\n   }"
+    },
+    "verification": {
+      "passed": true,
+      "reason": "glitch gone and no new glitches; it unmasks already-known glitches ['flash', 'zfight_flicker']",
+      "runs": 1,
+      "still_visible": 0,
+      "regressions": {},
+      "unmasked_known": {
+        "zfight_flicker": [
+          "walk_to_gem"
+        ],
+        "flash": [
+          "walk_to_gem"
+        ]
+      },
+      "fix_sha": "f2a94168ea"
+    },
+    "approval": {
+      "request_id": "730abbee",
+      "question": "F6 (frozen_frame on walk_to_gem): culprit ae5601f66e 'use per-gem reward values on pickup'. The revert removes the glitch with no new glitches. File the bug and keep the fix branch?",
+      "options": [
+        "approve",
+        "reject"
+      ],
+      "choice": "approve",
+      "by": "web",
+      "note": "Confirmed in the dashboard test: freeze happens right at the gem pickup."
+    },
+    "report": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\hunts\\h1023-030846-08f5\\reports\\F6.md",
+    "duplicate_of": null,
+    "history": [
+      {
+        "t": 0,
+        "from": null,
+        "to": "candidate",
+        "why": "picture stops changing at frame 31 (t=1.03s) and stays frozen for 29 frames until the end"
+      },
+      {
+        "t": 1792705152.11,
+        "from": "candidate",
+        "to": "confirmed",
+        "why": "reproduced 3/3"
+      },
+      {
+        "t": 1792705162.33,
+        "from": "confirmed",
+        "to": "bisected",
+        "why": "first bad commit ae5601f66e 'use per-gem reward values on pickup'"
+      },
+      {
+        "t": 1792705162.74,
+        "from": "bisected",
+        "to": "fix_proposed",
+        "why": "revert of ae5601f66e on branch glitchhunter/h1023-030846-08f5-f6-frozen_frame"
+      },
+      {
+        "t": 1792705177.61,
+        "from": "fix_proposed",
+        "to": "fix_verified",
+        "why": "glitch gone and no new glitches; it unmasks already-known glitches ['flash', 'zfight_flicker']"
+      },
+      {
+        "t": 1792705177.62,
+        "from": "fix_verified",
+        "to": "awaiting_approval",
+        "why": "waiting for a human decision"
+      },
+      {
+        "t": 1792705202.88,
+        "from": "awaiting_approval",
+        "to": "approved",
+        "why": "approved by web"
+      },
+      {
+        "t": 1792705202.88,
+        "from": "approved",
+        "to": "reported",
+        "why": "report written to F6.md"
+      }
+    ],
+    "severity": "critical"
+  },
+  {
+    "id": "F7",
+    "detector": "black_frame",
+    "scenario": "map_view",
+    "commit": "c7a252ba8009d1bb6a39bf519eae13c574ed325a",
+    "region": null,
+    "camera": null,
+    "score": 0.9496396780014038,
+    "confidence": 0.95,
+    "note": "10/10 frames are >85% black; only the UI (if anything) is still drawn",
+    "run_id": "1023030905b090",
+    "status": "rejected",
+    "object": null,
+    "frames": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "metrics": {
+      "black_frames": 10,
+      "of": 10,
+      "dark_fraction": 0.9496,
+      "still_visible_bbox": [
+        16,
+        16,
+        256,
+        64
+      ]
+    },
+    "evidence": {
+      "frame": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023030905b090\\ev\\survey-black_frame-0-frame.png",
+      "dark_plot": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023030905b090\\ev\\survey-black_frame-0-dark_plot.png",
+      "before_after_fix": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\10230310082d8e\\F7-before-after.png"
+    },
+    "also_seen": [],
+    "zooms": 0,
+    "repro": {
+      "runs": 3,
+      "hits": 3,
+      "rate": 1.0,
+      "deterministic": true,
+      "scores": [
+        0.95,
+        0.95,
+        0.95
+      ]
+    },
+    "bisect": {
+      "good": "ad32e651f1",
+      "bad": "c7a252ba80",
+      "repeats": 1,
+      "culprit": "b6d6bd6739",
+      "culprit_subject": "extend map view draw distance",
+      "steps": [
+        {
+          "commit": "ad32e651f1",
+          "bad": false,
+          "runs": 1,
+          "score": 0.0,
+          "subject": "add map view on the M key"
+        },
+        {
+          "commit": "c7a252ba80",
+          "bad": true,
+          "runs": 1,
+          "score": 0.95,
+          "subject": "add credits header"
+        },
+        {
+          "commit": "c64d8467d7",
+          "bad": false,
+          "runs": 1,
+          "score": 0.0,
+          "subject": "add ambient lightning flashes"
+        },
+        {
+          "commit": "ae5601f66e",
+          "bad": false,
+          "runs": 1,
+          "score": 0.0,
+          "subject": "use per-gem reward values on pickup"
+        },
+        {
+          "commit": "b1d02d0348",
+          "bad": false,
+          "runs": 1,
+          "score": 0.0,
+          "subject": "localize HUD labels"
+        },
+        {
+          "commit": "b6d6bd6739",
+          "bad": true,
+          "runs": 1,
+          "score": 0.95,
+          "subject": "extend map view draw distance"
+        }
+      ],
+      "tested": 6,
+      "range": 9,
+      "captures": 6
+    },
+    "bisect_attempts": 1,
+    "culprit": {
+      "sha": "b6d6bd6739e1c741a281fa806cccec512d8d4103",
+      "author": "Crypt Runner Dev",
+      "date": "Thu Oct 1 15:30:00 2026 +0000",
+      "subject": "extend map view draw distance",
+      "files": [
+        "game.js"
+      ],
+      "diff": "diff --git a/game.js b/game.js\nindex 2081c41..648d655 100644\n--- a/game.js\n+++ b/game.js\n@@ -1,3 +1,4 @@\n // Crypt Runner: a tiny three.js dungeon scene.\n+// Credits: textures are generated procedurally by the build script.\n import * as THREE from './vendor/three.module.js';"
+    },
+    "fix": {
+      "branch": "glitchhunter/h1023-030846-08f5-f7-black_frame",
+      "sha": "8483cccb468b321a88a46c54709f016a97e81e39",
+      "strategy": "revert",
+      "diff": "Revert \"extend map view draw distance\"\n\ndiff --git a/game.js b/game.js\nindex 648d655..61ff143 100644\n--- a/game.js\n+++ b/game.js\n@@ -268,5 +268,5 @@ function applyJitter(cam, frameIndex) {\n \n // --- map view -----------------------------------------------------------------\n-const MAP_CLIP = [100, 10000]; // draw distance in cm\n+const MAP_CLIP = [0.1, 100];\n const mapCam = new THREE.OrthographicCamera(-12, 12, 6.75, -6.75, MAP_CLIP[0], MAP_CLIP[1]);\n mapCam.position.set(0, 30, 0);",
+      "deleted": true
+    },
+    "verification": {
+      "passed": true,
+      "reason": "glitch gone and no new glitches; it unmasks already-known glitches ['geometry_explosion', 'missing_texture']",
+      "runs": 1,
+      "still_visible": 0,
+      "regressions": {},
+      "unmasked_known": {
+        "missing_texture": [
+          "map_view"
+        ],
+        "geometry_explosion": [
+          "map_view"
+        ]
+      },
+      "fix_sha": "8483cccb46"
+    },
+    "approval": {
+      "request_id": "80af0a5b",
+      "question": "F7 (black_frame on map_view): culprit b6d6bd6739 'extend map view draw distance'. The revert removes the glitch with no new glitches. File the bug and keep the fix branch?",
+      "options": [
+        "approve",
+        "reject"
+      ],
+      "choice": "reject",
+      "by": "web",
+      "note": "Dashboard test: rejecting to check that the fix branch is cleaned up."
+    },
+    "report": null,
+    "duplicate_of": null,
+    "history": [
+      {
+        "t": 0,
+        "from": null,
+        "to": "candidate",
+        "why": "10/10 frames are >85% black; only the UI (if anything) is still drawn"
+      },
+      {
+        "t": 1792705203.94,
+        "from": "candidate",
+        "to": "confirmed",
+        "why": "reproduced 3/3"
+      },
+      {
+        "t": 1792705207.08,
+        "from": "confirmed",
+        "to": "bisected",
+        "why": "first bad commit b6d6bd6739 'extend map view draw distance'"
+      },
+      {
+        "t": 1792705207.46,
+        "from": "bisected",
+        "to": "fix_proposed",
+        "why": "revert of b6d6bd6739 on branch glitchhunter/h1023-030846-08f5-f7-black_frame"
+      },
+      {
+        "t": 1792705213.23,
+        "from": "fix_proposed",
+        "to": "fix_verified",
+        "why": "glitch gone and no new glitches; it unmasks already-known glitches ['geometry_explosion', 'missing_texture']"
+      },
+      {
+        "t": 1792705213.24,
+        "from": "fix_verified",
+        "to": "awaiting_approval",
+        "why": "waiting for a human decision"
+      },
+      {
+        "t": 1792705237.07,
+        "from": "awaiting_approval",
+        "to": "rejected",
+        "why": "'reject' by web"
+      }
+    ],
+    "severity": "critical"
+  },
+  {
+    "id": "F4",
+    "detector": "geometry_explosion",
+    "scenario": "overview",
+    "commit": "c7a252ba8009d1bb6a39bf519eae13c574ed325a",
+    "region": [
+      90,
+      180,
+      101,
+      118
+    ],
+    "camera": null,
+    "score": 1.0,
+    "confidence": 0.7725575962100073,
+    "note": "3691 px spiky region (solidity 0.48) differs from the golden frame",
+    "run_id": "10230313376491",
+    "status": "reported",
+    "object": "rock",
+    "frames": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "metrics": {
+      "area_px": 3691.0,
+      "solidity": 0.4791,
+      "long_edges": 3,
+      "new_edge_px": 402
+    },
+    "evidence": {
+      "diff": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\10230313376491\\ev\\soak3-geometry_explosion-3-diff.png",
+      "golden_vs_now": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\10230313376491\\ev\\soak3-geometry_explosion-3-golden_vs_now.png"
+    },
+    "also_seen": [
+      "walk_to_gem"
+    ],
+    "zooms": 0,
+    "repro": {
+      "runs": 3,
+      "hits": 3,
+      "rate": 1.0,
+      "deterministic": false,
+      "scores": [
+        0.944,
+        1.0,
+        1.0
+      ]
+    },
+    "bisect": {
+      "good": "ad32e651f1",
+      "bad": "c7a252ba80",
+      "repeats": 2,
+      "culprit": "1f366b94a3",
+      "culprit_subject": "tune rock noise amplitude",
+      "steps": [
+        {
+          "commit": "ad32e651f1",
+          "bad": false,
+          "runs": 2,
+          "score": 0.0,
+          "subject": "add map view on the M key"
+        },
+        {
+          "commit": "c7a252ba80",
+          "bad": true,
+          "runs": 1,
+          "score": 0.944,
+          "subject": "add credits header"
+        },
+        {
+          "commit": "c64d8467d7",
+          "bad": false,
+          "runs": 2,
+          "score": 0.0,
+          "subject": "add ambient lightning flashes"
+        },
+        {
+          "commit": "ae5601f66e",
+          "bad": true,
+          "runs": 1,
+          "score": 0.944,
+          "subject": "use per-gem reward values on pickup"
+        },
+        {
+          "commit": "1f366b94a3",
+          "bad": true,
+          "runs": 1,
+          "score": 1.0,
+          "subject": "tune rock noise amplitude"
+        }
+      ],
+      "tested": 5,
+      "range": 9,
+      "captures": 7
+    },
+    "bisect_attempts": 1,
+    "culprit": {
+      "sha": "1f366b94a316881cd5c9bd15545ae21dfefaaf56",
+      "author": "Crypt Runner Dev",
+      "date": "Thu Oct 1 14:00:00 2026 +0000",
+      "subject": "tune rock noise amplitude",
+      "files": [
+        "game.js"
+      ],
+      "diff": "diff --git a/game.js b/game.js\nindex 2081c41..648d655 100644\n--- a/game.js\n+++ b/game.js\n@@ -1,3 +1,4 @@\n // Crypt Runner: a tiny three.js dungeon scene.\n+// Credits: textures are generated procedurally by the build script.\n import * as THREE from './vendor/three.module.js';"
+    },
+    "fix": {
+      "branch": "glitchhunter/h1023-030846-08f5-f4-geometry_explosion",
+      "sha": "6a76aa5b5e2d67333e04813653e3afa7410019cf",
+      "strategy": "revert",
+      "diff": "Revert \"tune rock noise amplitude\"\n\ndiff --git a/game.js b/game.js\nindex 648d655..793c39c 100644\n--- a/game.js\n+++ b/game.js\n@@ -172,5 +172,5 @@ function displaceRock(geometry, amp) {\n }\n \n-const ROCK_NOISE_AMP = 1.8; // bolder silhouette\n+const ROCK_NOISE_AMP = 0.18;\n const rockGeo = new THREE.IcosahedronGeometry(0.9, 3);\n displaceRock(rockGeo, ROCK_NOISE_AMP);"
+    },
+    "verification": {
+      "passed": true,
+      "reason": "glitch gone and no new glitches; it unmasks already-known glitches ['flash']",
+      "runs": 2,
+      "still_visible": 0,
+      "regressions": {},
+      "unmasked_known": {
+        "flash": [
+          "walk_to_gem"
+        ]
+      },
+      "fix_sha": "6a76aa5b5e"
+    },
+    "approval": {
+      "request_id": "89a0ab5c",
+      "question": "F4 (geometry_explosion on rock): culprit 1f366b94a3 'tune rock noise amplitude'. The revert removes the glitch with no new glitches. File the bug and keep the fix branch?",
+      "options": [
+        "approve",
+        "reject"
+      ],
+      "choice": "approve",
+      "by": "web",
+      "note": "approved by test script"
+    },
+    "report": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\hunts\\h1023-030846-08f5\\reports\\F4.md",
+    "duplicate_of": null,
+    "history": [
+      {
+        "t": 0,
+        "from": null,
+        "to": "candidate",
+        "why": "3681 px spiky region (solidity 0.48) differs from the golden frame"
+      },
+      {
+        "t": 1792705242.47,
+        "from": "candidate",
+        "to": "confirmed",
+        "why": "reproduced 3/3 (frames differ run to run)"
+      },
+      {
+        "t": 1792705257.03,
+        "from": "confirmed",
+        "to": "bisected",
+        "why": "first bad commit 1f366b94a3 'tune rock noise amplitude'"
+      },
+      {
+        "t": 1792705257.41,
+        "from": "bisected",
+        "to": "fix_proposed",
+        "why": "revert of 1f366b94a3 on branch glitchhunter/h1023-030846-08f5-f4-geometry_explosion"
+      },
+      {
+        "t": 1792705269.57,
+        "from": "fix_proposed",
+        "to": "fix_verified",
+        "why": "glitch gone and no new glitches; it unmasks already-known glitches ['flash']"
+      },
+      {
+        "t": 1792705269.58,
+        "from": "fix_verified",
+        "to": "awaiting_approval",
+        "why": "waiting for a human decision"
+      },
+      {
+        "t": 1792705270.99,
+        "from": "awaiting_approval",
+        "to": "approved",
+        "why": "approved by web"
+      },
+      {
+        "t": 1792705271.0,
+        "from": "approved",
+        "to": "reported",
+        "why": "report written to F4.md"
+      }
+    ],
+    "severity": "major"
+  },
+  {
+    "id": "F1",
+    "detector": "missing_texture",
+    "scenario": "walk_to_gem",
+    "commit": "c7a252ba8009d1bb6a39bf519eae13c574ed325a",
+    "region": [
+      232,
+      141,
+      38,
+      44
+    ],
+    "camera": null,
+    "score": 0.9772151898734177,
+    "confidence": 0.9857594936708861,
+    "note": "668 px of magenta/black checker (engine missing-texture placeholder)",
+    "run_id": "1023030856e14b",
+    "status": "reported",
+    "object": "crate",
+    "frames": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59
+    ],
+    "metrics": {
+      "magenta_px": 668,
+      "dark_px": 596,
+      "checker": 0.943,
+      "persistence": 1.0
+    },
+    "evidence": {
+      "annotated": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023030856e14b\\ev\\survey-missing_texture-0-annotated.png",
+      "closeup": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023030856e14b\\ev\\survey-missing_texture-0-closeup.png",
+      "before_after_fix": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023031128dbe8\\F1-before-after.png"
+    },
+    "also_seen": [
+      "overview"
+    ],
+    "zooms": 0,
+    "repro": {
+      "runs": 3,
+      "hits": 3,
+      "rate": 1.0,
+      "deterministic": true,
+      "scores": [
+        0.977,
+        0.977,
+        0.996
+      ]
+    },
+    "bisect": {
+      "good": "ad32e651f1",
+      "bad": "c7a252ba80",
+      "repeats": 1,
+      "culprit": "c08ccda574",
+      "culprit_subject": "reorganize texture paths",
+      "steps": [
+        {
+          "commit": "ad32e651f1",
+          "bad": false,
+          "runs": 1,
+          "score": 0.0,
+          "subject": "add map view on the M key"
+        },
+        {
+          "commit": "c7a252ba80",
+          "bad": true,
+          "runs": 1,
+          "score": 0.996,
+          "subject": "add credits header"
+        },
+        {
+          "commit": "c64d8467d7",
+          "bad": true,
+          "runs": 1,
+          "score": 0.945,
+          "subject": "add ambient lightning flashes"
+        },
+        {
+          "commit": "c08ccda574",
+          "bad": true,
+          "runs": 1,
+          "score": 0.974,
+          "subject": "reorganize texture paths"
+        },
+        {
+          "commit": "cc5f7ba284",
+          "bad": false,
+          "runs": 1,
+          "score": 0.0,
+          "subject": "tweak torch color"
+        }
+      ],
+      "tested": 5,
+      "range": 9,
+      "captures": 5
+    },
+    "bisect_attempts": 1,
+    "culprit": {
+      "sha": "c08ccda57475c317d8aef955d5975cfe14362688",
+      "author": "Crypt Runner Dev",
+      "date": "Thu Oct 1 12:30:00 2026 +0000",
+      "subject": "reorganize texture paths",
+      "files": [
+        "game.js"
+      ],
+      "diff": "diff --git a/game.js b/game.js\nindex 2081c41..648d655 100644\n--- a/game.js\n+++ b/game.js\n@@ -1,3 +1,4 @@\n // Crypt Runner: a tiny three.js dungeon scene.\n+// Credits: textures are generated procedurally by the build script.\n import * as THREE from './vendor/three.module.js';"
+    },
+    "fix": {
+      "branch": "glitchhunter/h1023-030846-08f5-f1-missing_texture",
+      "sha": "06d134a9de14625c0fd56edc437fdc6ec702734c",
+      "strategy": "revert",
+      "diff": "Revert \"reorganize texture paths\"\n\ndiff --git a/game.js b/game.js\nindex 648d655..9415ee4 100644\n--- a/game.js\n+++ b/game.js\n@@ -38,5 +38,5 @@ const TEX = {\n   floor: 'assets/floor_tiles.png',\n   wall: 'assets/wall_bricks.png',\n-  crate: 'assets/props/crate_wood.png',\n+  crate: 'assets/crate_wood.png',\n   rune: 'assets/rune.png',\n };"
+    },
+    "verification": {
+      "passed": true,
+      "reason": "glitch gone and no new glitches",
+      "runs": 1,
+      "still_visible": 0,
+      "regressions": {},
+      "unmasked_known": {},
+      "fix_sha": "06d134a9de"
+    },
+    "approval": {
+      "request_id": "f98e02d4",
+      "question": "F1 (missing_texture on crate): culprit c08ccda574 'reorganize texture paths'. The revert removes the glitch with no new glitches. File the bug and keep the fix branch?",
+      "options": [
+        "approve",
+        "reject"
+      ],
+      "choice": "approve",
+      "by": "web",
+      "note": "approved by test script"
+    },
+    "report": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\hunts\\h1023-030846-08f5\\reports\\F1.md",
+    "duplicate_of": null,
+    "history": [
+      {
+        "t": 0,
+        "from": null,
+        "to": "candidate",
+        "why": "763 px of magenta/black checker (engine missing-texture placeholder)"
+      },
+      {
+        "t": 1792705276.25,
+        "from": "candidate",
+        "to": "confirmed",
+        "why": "reproduced 3/3"
+      },
+      {
+        "t": 1792705286.76,
+        "from": "confirmed",
+        "to": "bisected",
+        "why": "first bad commit c08ccda574 'reorganize texture paths'"
+      },
+      {
+        "t": 1792705287.17,
+        "from": "bisected",
+        "to": "fix_proposed",
+        "why": "revert of c08ccda574 on branch glitchhunter/h1023-030846-08f5-f1-missing_texture"
+      },
+      {
+        "t": 1792705296.54,
+        "from": "fix_proposed",
+        "to": "fix_verified",
+        "why": "glitch gone and no new glitches"
+      },
+      {
+        "t": 1792705296.54,
+        "from": "fix_verified",
+        "to": "awaiting_approval",
+        "why": "waiting for a human decision"
+      },
+      {
+        "t": 1792705297.7,
+        "from": "awaiting_approval",
+        "to": "approved",
+        "why": "approved by web"
+      },
+      {
+        "t": 1792705297.7,
+        "from": "approved",
+        "to": "reported",
+        "why": "report written to F1.md"
+      }
+    ],
+    "severity": "major"
+  },
+  {
+    "id": "F3",
+    "detector": "flash",
+    "scenario": "overview",
+    "commit": "c7a252ba8009d1bb6a39bf519eae13c574ed325a",
+    "region": null,
+    "camera": null,
+    "score": 0.7045761108398437,
+    "confidence": 0.9,
+    "note": "1 full-screen flash(es), brightness +42 over the median (photosensitivity risk)",
+    "run_id": "1023031322ffa9",
+    "status": "reported",
+    "object": null,
+    "frames": [
+      0,
+      1
+    ],
+    "metrics": {
+      "flash_events": 1,
+      "max_jump": 42.2746,
+      "flashes_per_second": 1.25,
+      "max_flashes_in_1s": 1,
+      "wcag_2_3_1_violation": false
+    },
+    "evidence": {
+      "luma_plot": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023031322ffa9\\ev\\soak1-flash-3-luma_plot.png",
+      "flash_frame": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023031322ffa9\\ev\\soak1-flash-3-flash_frame.png"
+    },
+    "also_seen": [],
+    "zooms": 0,
+    "repro": {
+      "runs": 4,
+      "hits": 1,
+      "rate": 0.25,
+      "deterministic": false,
+      "scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.704
+      ]
+    },
+    "bisect": {
+      "good": "ad32e651f1",
+      "bad": "c7a252ba80",
+      "repeats": 8,
+      "culprit": "c64d8467d7",
+      "culprit_subject": "add ambient lightning flashes",
+      "steps": [
+        {
+          "commit": "ad32e651f1",
+          "bad": false,
+          "runs": 8,
+          "score": 0.0,
+          "subject": "add map view on the M key"
+        },
+        {
+          "commit": "c7a252ba80",
+          "bad": true,
+          "runs": 2,
+          "score": 0.704,
+          "subject": "add credits header"
+        },
+        {
+          "commit": "c64d8467d7",
+          "bad": true,
+          "runs": 1,
+          "score": 0.706,
+          "subject": "add ambient lightning flashes"
+        },
+        {
+          "commit": "c08ccda574",
+          "bad": false,
+          "runs": 8,
+          "score": 0.0,
+          "subject": "reorganize texture paths"
+        },
+        {
+          "commit": "ba98e5d336",
+          "bad": false,
+          "runs": 8,
+          "score": 0.0,
+          "subject": "snap rune decal flush to the floor"
+        }
+      ],
+      "tested": 5,
+      "range": 9,
+      "captures": 27
+    },
+    "bisect_attempts": 1,
+    "culprit": {
+      "sha": "c64d8467d761f63c68dffdee26e81ee7f787c77e",
+      "author": "Crypt Runner Dev",
+      "date": "Thu Oct 1 13:30:00 2026 +0000",
+      "subject": "add ambient lightning flashes",
+      "files": [
+        "game.js"
+      ],
+      "diff": "diff --git a/game.js b/game.js\nindex 2081c41..648d655 100644\n--- a/game.js\n+++ b/game.js\n@@ -1,3 +1,4 @@\n // Crypt Runner: a tiny three.js dungeon scene.\n+// Credits: textures are generated procedurally by the build script.\n import * as THREE from './vendor/three.module.js';"
+    },
+    "fix": {
+      "branch": "glitchhunter/h1023-030846-08f5-f3-flash",
+      "sha": "5f6470b079b0d9b609a9a0be6850716e71d1f2fe",
+      "strategy": "revert",
+      "diff": "Revert \"add ambient lightning flashes\"\n\ndiff --git a/game.js b/game.js\nindex 648d655..fadc444 100644\n--- a/game.js\n+++ b/game.js\n@@ -278,15 +278,4 @@ function toggleMap() {\n }\n \n-// --- ambient lightning ----------------------------------------------------------\n-const flashLight = new THREE.AmbientLight(0xdfe8ff, 0);\n-scene.add(flashLight);\n-let flash = 0;\n-\n-function updateLightning() {\n-  if (flash > 0) flash -= 1;\n-  else if (Math.random() < 0.02) flash = 2;\n-  flashLight.intensity = flash > 0 ? 3.5 : 0;\n-}\n-\n // --- loop -----------------------------------------------------------------------\n let frame = 0;\n@@ -325,5 +314,4 @@ function tick() {\n     torch.intensity = 18 * (0.92 + 0.08 * Math.sin(frame * 0.37) * Math.sin(frame * 0.11 + 1.3));\n     updatePlayer();\n-    updateLightning();\n     renderFrame();\n   } catch (e) {"
+    },
+    "verification": {
+      "passed": true,
+      "reason": "glitch gone and no new glitches",
+      "runs": 8,
+      "still_visible": 0,
+      "regressions": {},
+      "unmasked_known": {},
+      "fix_sha": "5f6470b079"
+    },
+    "approval": {
+      "request_id": "5d051a77",
+      "question": "F3 (flash on overview): culprit c64d8467d7 'add ambient lightning flashes'. The revert removes the glitch with no new glitches. File the bug and keep the fix branch?",
+      "options": [
+        "approve",
+        "reject"
+      ],
+      "choice": "approve",
+      "by": "web",
+      "note": "approved by test script"
+    },
+    "report": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\hunts\\h1023-030846-08f5\\reports\\F3.md",
+    "duplicate_of": null,
+    "history": [
+      {
+        "t": 0,
+        "from": null,
+        "to": "candidate",
+        "why": "2 full-screen flash(es), brightness +42 over the median (photosensitivity risk)"
+      },
+      {
+        "t": 1792705301.69,
+        "from": "candidate",
+        "to": "flaky",
+        "why": "reproduced 1/4; frames differ run to run"
+      },
+      {
+        "t": 1792705328.58,
+        "from": "flaky",
+        "to": "bisected",
+        "why": "first bad commit c64d8467d7 'add ambient lightning flashes'"
+      },
+      {
+        "t": 1792705328.99,
+        "from": "bisected",
+        "to": "fix_proposed",
+        "why": "revert of c64d8467d7 on branch glitchhunter/h1023-030846-08f5-f3-flash"
+      },
+      {
+        "t": 1792705348.1,
+        "from": "fix_proposed",
+        "to": "fix_verified",
+        "why": "glitch gone and no new glitches"
+      },
+      {
+        "t": 1792705348.1,
+        "from": "fix_verified",
+        "to": "awaiting_approval",
+        "why": "waiting for a human decision"
+      },
+      {
+        "t": 1792705351.58,
+        "from": "awaiting_approval",
+        "to": "approved",
+        "why": "approved by web"
+      },
+      {
+        "t": 1792705351.59,
+        "from": "approved",
+        "to": "reported",
+        "why": "report written to F3.md"
+      }
+    ],
+    "severity": "major"
+  },
+  {
+    "id": "F5",
+    "detector": "hud_text_overflow",
+    "scenario": "overview",
+    "commit": "c7a252ba8009d1bb6a39bf519eae13c574ed325a",
+    "region": [
+      20,
+      20,
+      164,
+      56
+    ],
+    "camera": null,
+    "score": 1.0,
+    "confidence": 0.9,
+    "note": "UI text ['scoreltot'] extends 91px beyond its panel",
+    "run_id": "1023030848c0f1",
+    "status": "reported",
+    "object": null,
+    "frames": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "metrics": {
+      "panel": [
+        20,
+        20,
+        164,
+        56
+      ],
+      "overflow_px": 91,
+      "texts": [
+        "a",
+        "hitpoints100",
+        "scoreltot"
+      ],
+      "overflowing_text": [
+        "scoreltot"
+      ]
+    },
+    "evidence": {
+      "annotated": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023030848c0f1\\ev\\survey-hud_text_overflow-4-annotated.png",
+      "closeup": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023030848c0f1\\ev\\survey-hud_text_overflow-4-closeup.png",
+      "before_after_fix": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\10230312437a89\\F5-before-after.png"
+    },
+    "also_seen": [
+      "walk_to_gem",
+      "map_view"
+    ],
+    "zooms": 0,
+    "repro": {
+      "runs": 3,
+      "hits": 3,
+      "rate": 1.0,
+      "deterministic": true,
+      "scores": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "bisect": {
+      "good": "ad32e651f1",
+      "bad": "c7a252ba80",
+      "repeats": 1,
+      "culprit": "b1d02d0348",
+      "culprit_subject": "localize HUD labels",
+      "steps": [
+        {
+          "commit": "ad32e651f1",
+          "bad": false,
+          "runs": 1,
+          "score": 0.0,
+          "subject": "add map view on the M key"
+        },
+        {
+          "commit": "c7a252ba80",
+          "bad": true,
+          "runs": 1,
+          "score": 1.0,
+          "subject": "add credits header"
+        },
+        {
+          "commit": "c64d8467d7",
+          "bad": false,
+          "runs": 1,
+          "score": 0.0,
+          "subject": "add ambient lightning flashes"
+        },
+        {
+          "commit": "ae5601f66e",
+          "bad": false,
+          "runs": 1,
+          "score": 0.0,
+          "subject": "use per-gem reward values on pickup"
+        },
+        {
+          "commit": "b1d02d0348",
+          "bad": true,
+          "runs": 1,
+          "score": 1.0,
+          "subject": "localize HUD labels"
+        }
+      ],
+      "tested": 5,
+      "range": 9,
+      "captures": 5
+    },
+    "bisect_attempts": 1,
+    "culprit": {
+      "sha": "b1d02d034801063f528e12f73df6d6f603d519d6",
+      "author": "Crypt Runner Dev",
+      "date": "Thu Oct 1 15:00:00 2026 +0000",
+      "subject": "localize HUD labels",
+      "files": [
+        "game.js"
+      ],
+      "diff": "diff --git a/game.js b/game.js\nindex 2081c41..648d655 100644\n--- a/game.js\n+++ b/game.js\n@@ -1,3 +1,4 @@\n // Crypt Runner: a tiny three.js dungeon scene.\n+// Credits: textures are generated procedurally by the build script.\n import * as THREE from './vendor/three.module.js';"
+    },
+    "fix": {
+      "branch": "glitchhunter/h1023-030846-08f5-f5-hud_text_overflow",
+      "sha": "ef5718b92cf49c51b489cdb29fb816227cf7999c",
+      "strategy": "revert",
+      "diff": "Revert \"localize HUD labels\"\n\ndiff --git a/game.js b/game.js\nindex 648d655..8daa763 100644\n--- a/game.js\n+++ b/game.js\n@@ -234,5 +234,5 @@ const hudQuad = new THREE.Mesh(\n hudQuad.position.set(16 + 128, H - 16 - 32, 0);\n hudScene.add(hudQuad);\n-const LABELS = { hp: 'Hit Points', score: 'Score Total' };\n+const LABELS = { hp: 'HP', score: 'PTS' };\n \n const hud = {"
+    },
+    "verification": {
+      "passed": true,
+      "reason": "glitch gone and no new glitches",
+      "runs": 1,
+      "still_visible": 0,
+      "regressions": {},
+      "unmasked_known": {},
+      "fix_sha": "ef5718b92c"
+    },
+    "approval": {
+      "request_id": "004957e9",
+      "question": "F5 (hud_text_overflow on overview): culprit b1d02d0348 'localize HUD labels'. The revert removes the glitch with no new glitches. File the bug and keep the fix branch?",
+      "options": [
+        "approve",
+        "reject"
+      ],
+      "choice": "approve",
+      "by": "web",
+      "note": "approved by test script"
+    },
+    "report": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\hunts\\h1023-030846-08f5\\reports\\F5.md",
+    "duplicate_of": null,
+    "history": [
+      {
+        "t": 0,
+        "from": null,
+        "to": "candidate",
+        "why": "UI text ['scoreltot'] extends 91px beyond its panel"
+      },
+      {
+        "t": 1792705355.38,
+        "from": "candidate",
+        "to": "confirmed",
+        "why": "reproduced 3/3"
+      },
+      {
+        "t": 1792705362.07,
+        "from": "confirmed",
+        "to": "bisected",
+        "why": "first bad commit b1d02d0348 'localize HUD labels'"
+      },
+      {
+        "t": 1792705362.47,
+        "from": "bisected",
+        "to": "fix_proposed",
+        "why": "revert of b1d02d0348 on branch glitchhunter/h1023-030846-08f5-f5-hud_text_overflow"
+      },
+      {
+        "t": 1792705369.69,
+        "from": "fix_proposed",
+        "to": "fix_verified",
+        "why": "glitch gone and no new glitches"
+      },
+      {
+        "t": 1792705369.69,
+        "from": "fix_verified",
+        "to": "awaiting_approval",
+        "why": "waiting for a human decision"
+      },
+      {
+        "t": 1792705372.99,
+        "from": "awaiting_approval",
+        "to": "approved",
+        "why": "approved by web"
+      },
+      {
+        "t": 1792705373.0,
+        "from": "approved",
+        "to": "reported",
+        "why": "report written to F5.md"
+      }
+    ],
+    "severity": "minor"
+  },
+  {
+    "id": "F2",
+    "detector": "zfight_flicker",
+    "scenario": "overview",
+    "commit": "c7a252ba8009d1bb6a39bf519eae13c574ed325a",
+    "region": [
+      188,
+      164,
+      45,
+      20
+    ],
+    "camera": {
+      "pos": [
+        3.3097,
+        1.25,
+        1.2903
+      ],
+      "target": [
+        4.0059,
+        0.0,
+        -0.9478
+      ],
+      "fov": 55
+    },
+    "score": 0.919921875,
+    "confidence": 0.9910163283348083,
+    "note": "662 px region toggles 11x in 24 frames (z-fighting / flicker)",
+    "run_id": "1023031256ae5c",
+    "status": "reported",
+    "object": "floor+rune_decal",
+    "frames": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "metrics": {
+      "area_px": 662,
+      "swing": 18.3984,
+      "roughness": 0.991,
+      "toggles": 11,
+      "mean_std": 18.4583,
+      "coplanar_surfaces": [
+        "floor",
+        "rune_decal"
+      ]
+    },
+    "evidence": {
+      "heatmap": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023031256ae5c\\ev\\F2-zoom2-zfight_flicker-1-heatmap.png",
+      "closeup": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023031256ae5c\\ev\\F2-zoom2-zfight_flicker-1-closeup.png",
+      "series": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023031256ae5c\\ev\\F2-zoom2-zfight_flicker-1-series.png",
+      "before_heatmap": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\10230312542884\\ev\\F2-zoom1-zfight_flicker-0-heatmap.png",
+      "before_closeup": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\10230312542884\\ev\\F2-zoom1-zfight_flicker-0-closeup.png",
+      "before_series": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\10230312542884\\ev\\F2-zoom1-zfight_flicker-0-series.png",
+      "before_after_fix": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\102303130588c3\\F2-before-after.png"
+    },
+    "also_seen": [],
+    "zooms": 2,
+    "repro": {
+      "runs": 3,
+      "hits": 3,
+      "rate": 1.0,
+      "deterministic": true,
+      "scores": [
+        0.972,
+        0.988,
+        0.972
+      ]
+    },
+    "bisect": {
+      "good": "ad32e651f1",
+      "bad": "c7a252ba80",
+      "repeats": 1,
+      "culprit": "ba98e5d336",
+      "culprit_subject": "snap rune decal flush to the floor",
+      "steps": [
+        {
+          "commit": "ad32e651f1",
+          "bad": false,
+          "runs": 1,
+          "score": 0.0,
+          "subject": "add map view on the M key"
+        },
+        {
+          "commit": "c7a252ba80",
+          "bad": true,
+          "runs": 1,
+          "score": 0.92,
+          "subject": "add credits header"
+        },
+        {
+          "commit": "c64d8467d7",
+          "bad": true,
+          "runs": 1,
+          "score": 0.934,
+          "subject": "add ambient lightning flashes"
+        },
+        {
+          "commit": "c08ccda574",
+          "bad": false,
+          "runs": 1,
+          "score": 0.0,
+          "subject": "reorganize texture paths"
+        },
+        {
+          "commit": "ba98e5d336",
+          "bad": true,
+          "runs": 1,
+          "score": 0.92,
+          "subject": "snap rune decal flush to the floor"
+        }
+      ],
+      "tested": 5,
+      "range": 9,
+      "captures": 5
+    },
+    "bisect_attempts": 1,
+    "culprit": {
+      "sha": "ba98e5d3368ce48ba957308bf19c708ef8a02939",
+      "author": "Crypt Runner Dev",
+      "date": "Thu Oct 1 13:00:00 2026 +0000",
+      "subject": "snap rune decal flush to the floor",
+      "files": [
+        "game.js"
+      ],
+      "diff": "diff --git a/game.js b/game.js\nindex 2081c41..648d655 100644\n--- a/game.js\n+++ b/game.js\n@@ -1,3 +1,4 @@\n // Crypt Runner: a tiny three.js dungeon scene.\n+// Credits: textures are generated procedurally by the build script.\n import * as THREE from './vendor/three.module.js';"
+    },
+    "fix": {
+      "branch": "glitchhunter/h1023-030846-08f5-f2-zfight_flicker",
+      "sha": "ed2ed58c7f0a2ab3e5dc699e1c5221ac7cdc088c",
+      "strategy": "revert",
+      "diff": "Revert \"snap rune decal flush to the floor\"\n\ndiff --git a/game.js b/game.js\nindex 648d655..15e5e8a 100644\n--- a/game.js\n+++ b/game.js\n@@ -146,5 +146,5 @@ loadTex(TEX.rune, runeMat);\n const rune = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 2.4), runeMat);\n rune.rotation.x = -Math.PI / 2;\n-rune.position.set(3.2, 0.0, -1.4); // sit flush on the floor\n+rune.position.set(3.2, 0.02, -1.4);\n rune.name = 'rune_decal';\n scene.add(rune);"
+    },
+    "verification": {
+      "passed": true,
+      "reason": "glitch gone and no new glitches",
+      "runs": 1,
+      "still_visible": 0,
+      "regressions": {},
+      "unmasked_known": {},
+      "fix_sha": "ed2ed58c7f"
+    },
+    "approval": {
+      "request_id": "92f2d7f0",
+      "question": "F2 (zfight_flicker on floor+rune_decal): culprit ba98e5d336 'snap rune decal flush to the floor'. The revert removes the glitch with no new glitches. File the bug and keep the fix branch?",
+      "options": [
+        "approve",
+        "reject"
+      ],
+      "choice": "approve",
+      "by": "web",
+      "note": "approved by test script"
+    },
+    "report": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\hunts\\h1023-030846-08f5\\reports\\F2.md",
+    "duplicate_of": null,
+    "history": [
+      {
+        "t": 0,
+        "from": null,
+        "to": "candidate",
+        "why": "52 px region toggles 9x in 20 frames (z-fighting / flicker)"
+      },
+      {
+        "t": 1792705379.32,
+        "from": "candidate",
+        "to": "confirmed",
+        "why": "reproduced 3/3"
+      },
+      {
+        "t": 1792705384.44,
+        "from": "confirmed",
+        "to": "bisected",
+        "why": "first bad commit ba98e5d336 'snap rune decal flush to the floor'"
+      },
+      {
+        "t": 1792705384.84,
+        "from": "bisected",
+        "to": "fix_proposed",
+        "why": "revert of ba98e5d336 on branch glitchhunter/h1023-030846-08f5-f2-zfight_flicker"
+      },
+      {
+        "t": 1792705391.64,
+        "from": "fix_proposed",
+        "to": "fix_verified",
+        "why": "glitch gone and no new glitches"
+      },
+      {
+        "t": 1792705391.64,
+        "from": "fix_verified",
+        "to": "awaiting_approval",
+        "why": "waiting for a human decision"
+      },
+      {
+        "t": 1792705394.46,
+        "from": "awaiting_approval",
+        "to": "approved",
+        "why": "approved by web"
+      },
+      {
+        "t": 1792705394.47,
+        "from": "approved",
+        "to": "reported",
+        "why": "report written to F2.md"
+      }
+    ],
+    "severity": "minor"
+  }
+]

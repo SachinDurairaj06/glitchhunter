@@ -1,0 +1,208 @@
+{
+  "id": "F6",
+  "detector": "frozen_frame",
+  "scenario": "walk_to_gem",
+  "commit": "c7a252ba8009d1bb6a39bf519eae13c574ed325a",
+  "region": null,
+  "camera": null,
+  "score": 1.0,
+  "confidence": 0.95,
+  "note": "picture stops changing at frame 31 (t=1.03s) and stays frozen for 29 frames until the end",
+  "run_id": "1023030856e14b",
+  "status": "approved",
+  "object": null,
+  "frames": [
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59
+  ],
+  "metrics": {
+    "frozen_from": 31,
+    "frozen_frames": 29,
+    "until_end": true,
+    "max_diff_before": 193.0
+  },
+  "evidence": {
+    "diff_plot": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023030856e14b\\ev\\survey-frozen_frame-1-diff_plot.png",
+    "before_after": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023030856e14b\\ev\\survey-frozen_frame-1-before_after.png",
+    "before_after_fix": "C:\\Users\\Top1terminator\\AppData\\Local\\Packages\\Claude_pzs8sxrjxfjjc\\LocalCache\\Local\\glitchhunter\\work\\runs\\1023030924bc0b\\F6-before-after.png"
+  },
+  "also_seen": [],
+  "zooms": 0,
+  "repro": {
+    "runs": 3,
+    "hits": 3,
+    "rate": 1.0,
+    "deterministic": true,
+    "scores": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "bisect": {
+    "good": "ad32e651f1",
+    "bad": "c7a252ba80",
+    "repeats": 1,
+    "culprit": "ae5601f66e",
+    "culprit_subject": "use per-gem reward values on pickup",
+    "steps": [
+      {
+        "commit": "ad32e651f1",
+        "bad": false,
+        "runs": 1,
+        "score": 0.0,
+        "subject": "add map view on the M key"
+      },
+      {
+        "commit": "c7a252ba80",
+        "bad": true,
+        "runs": 1,
+        "score": 1.0,
+        "subject": "add credits header"
+      },
+      {
+        "commit": "c64d8467d7",
+        "bad": false,
+        "runs": 1,
+        "score": 0.0,
+        "subject": "add ambient lightning flashes"
+      },
+      {
+        "commit": "ae5601f66e",
+        "bad": true,
+        "runs": 1,
+        "score": 1.0,
+        "subject": "use per-gem reward values on pickup"
+      },
+      {
+        "commit": "1f366b94a3",
+        "bad": false,
+        "runs": 1,
+        "score": 0.0,
+        "subject": "tune rock noise amplitude"
+      }
+    ],
+    "tested": 5,
+    "range": 9,
+    "captures": 5
+  },
+  "bisect_attempts": 1,
+  "culprit": {
+    "sha": "ae5601f66e79ff260e04c1403137049c771f0d9e",
+    "author": "Crypt Runner Dev",
+    "date": "Thu Oct 1 14:30:00 2026 +0000",
+    "subject": "use per-gem reward values on pickup",
+    "files": [
+      "game.js"
+    ],
+    "diff": "diff --git a/game.js b/game.js\nindex 2081c41..648d655 100644\n--- a/game.js\n+++ b/game.js\n@@ -1,3 +1,4 @@\n // Crypt Runner: a tiny three.js dungeon scene.\n+// Credits: textures are generated procedurally by the build script.\n import * as THREE from './vendor/three.module.js';"
+  },
+  "fix": {
+    "branch": "glitchhunter/h1023-030846-08f5-f6-frozen_frame",
+    "sha": "f2a94168ea2b88c9a24d2e20843fd6709aba13a2",
+    "strategy": "revert",
+    "diff": "Revert \"use per-gem reward values on pickup\"\n\ndiff --git a/game.js b/game.js\nindex 648d655..cf5ffd7 100644\n--- a/game.js\n+++ b/game.js\n@@ -212,5 +212,5 @@ function updatePlayer() {\n   if (gem.visible && player.position.distanceTo(gem.position) < 0.9) {\n     gem.visible = false;\n-    score += gem.userData.reward.points;\n+    score += 10;\n     hud.draw();\n   }"
+  },
+  "verification": {
+    "passed": true,
+    "reason": "glitch gone and no new glitches; it unmasks already-known glitches ['flash', 'zfight_flicker']",
+    "runs": 1,
+    "still_visible": 0,
+    "regressions": {},
+    "unmasked_known": {
+      "zfight_flicker": [
+        "walk_to_gem"
+      ],
+      "flash": [
+        "walk_to_gem"
+      ]
+    },
+    "fix_sha": "f2a94168ea"
+  },
+  "approval": {
+    "request_id": "730abbee",
+    "question": "F6 (frozen_frame on walk_to_gem): culprit ae5601f66e 'use per-gem reward values on pickup'. The revert removes the glitch with no new glitches. File the bug and keep the fix branch?",
+    "options": [
+      "approve",
+      "reject"
+    ],
+    "choice": "approve",
+    "by": "web",
+    "note": "Confirmed in the dashboard test: freeze happens right at the gem pickup."
+  },
+  "report": null,
+  "duplicate_of": null,
+  "history": [
+    {
+      "t": 0,
+      "from": null,
+      "to": "candidate",
+      "why": "picture stops changing at frame 31 (t=1.03s) and stays frozen for 29 frames until the end"
+    },
+    {
+      "t": 1792705152.11,
+      "from": "candidate",
+      "to": "confirmed",
+      "why": "reproduced 3/3"
+    },
+    {
+      "t": 1792705162.33,
+      "from": "confirmed",
+      "to": "bisected",
+      "why": "first bad commit ae5601f66e 'use per-gem reward values on pickup'"
+    },
+    {
+      "t": 1792705162.74,
+      "from": "bisected",
+      "to": "fix_proposed",
+      "why": "revert of ae5601f66e on branch glitchhunter/h1023-030846-08f5-f6-frozen_frame"
+    },
+    {
+      "t": 1792705177.61,
+      "from": "fix_proposed",
+      "to": "fix_verified",
+      "why": "glitch gone and no new glitches; it unmasks already-known glitches ['flash', 'zfight_flicker']"
+    },
+    {
+      "t": 1792705177.62,
+      "from": "fix_verified",
+      "to": "awaiting_approval",
+      "why": "waiting for a human decision"
+    },
+    {
+      "t": 1792705202.88,
+      "from": "awaiting_approval",
+      "to": "approved",
+      "why": "approved by web"
+    }
+  ],
+  "severity": "critical"
+}
